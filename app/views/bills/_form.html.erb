@@ -43,22 +43,29 @@
     </div>
     <%=f.error_span(:total_amount) %>
   </div>
-<!--   <div class="form-group">
-    <%= f.label :user, :class => 'control-label col-lg-2' %>
+  <div class="form-group">
+    <%= f.label :user, "Present Users", :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
       <%= f.select :user_ids, User.all.collect {|x| [x.name, x.id]}, {}, :multiple => true %>
     </div>
-  </div> -->
-  <table id="tasks">
-    <%= f.fields_for :payments, :wrapper => false do |task_form| %>
-      <tr class="fields">
-        <td><%= task_form.select :user_id, User.all.collect {|x| [x.name, x.id]}, {} %></td>
-        <td><%= task_form.text_field :amount %></td>
-        <td><%= task_form.link_to_remove "Remove this task" %></td>
-      </tr>
-    <% end %>
-  </table>
-  <p><%= f.link_to_add "Add a task", :payments, :data => { :target => "#tasks" } %></p>
+  </div>
+  <div class="form-group">
+    <%= f.label :payments, :class => 'control-label col-lg-2' %>
+    <div class="col-lg-10">
+      <table id="tasks">
+        <%= f.fields_for :payments, :wrapper => false do |task_form| %>
+          <tr class="fields">
+            <td><%= task_form.select :user_id, User.all.collect {|x| [x.name, x.id]}, {} %></td>
+            <td><%= task_form.text_field :amount %></td>
+            <td><%= task_form.link_to_remove "Remove payment" %></td>
+          </tr>
+        <% end %>
+      </table>
+      <p><%= f.link_to_add "Add payment", :payments, :data => { :target => "#tasks" } %></p>
+      <p style="color:red;">Note: Please make separate entry for each present user. If sombody have not paid, make his entry with $0 amount.</p>
+    </div>
+  </div>
+
 
   <div class="form-group">
     <div class="col-lg-offset-2 col-lg-10">

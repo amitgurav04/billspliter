@@ -20,8 +20,6 @@ class BillsController < ApplicationController
 
   # GET /bills/1/edit
   def edit
-    binding.pry
-    @bill.payments.build
   end
 
   # POST /bills
@@ -72,6 +70,6 @@ class BillsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def bill_params
-      params.require(:bill).permit(:event, :entry_date, :location, :total_amount, payments_attributes:[:user_id, :amount])
+      params.require(:bill).permit(:event, :entry_date, :location, :total_amount, :user_ids, payments_attributes:[:id, :user_id, :amount, :_destroy])
     end
 end

@@ -9,7 +9,8 @@
       <th><%= model_class.human_attribute_name(:name) %></th>
       <th><%= model_class.human_attribute_name(:city) %></th>
       <th><%= model_class.human_attribute_name(:total_paid) %></th> 
-      <th><%= model_class.human_attribute_name(:total_repay) %></th>     
+      <th><%= model_class.human_attribute_name(:actual_pay) %></th> 
+      <th><%= model_class.human_attribute_name(:total_repay) %> (-ve value means you will get money)</th>     
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -19,8 +20,9 @@
         <td><%= link_to user.id, user_path(user) %></td>
         <td><%= user.name %></td>
         <td><%= user.city %></td>
-        <td><%= user.total_paid %></td>
-        <td><%= user.total_repay %></td>
+        <td><%= a = user.total_paid %></td>
+        <th><%= b = user.actual_pay %></th> 
+        <td><%= b - a %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_path(user), :class => 'btn btn-default btn-xs' %>
@@ -34,6 +36,7 @@
     <% end %>
   </tbody>
 </table>
+<div>Output:<%=final_settlement.html_safe %></div>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_user_path,
